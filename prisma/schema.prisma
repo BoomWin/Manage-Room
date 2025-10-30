@@ -1,0 +1,40 @@
+ generator client {
+    provider = "prisma-client-js"
+  }
+
+  datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+  }
+
+  model User {
+    id           String        @id @default(cuid())
+    name         String
+    email        String        @unique
+    password     String
+    lab          String        // "양자보안연구실" 또는 "이동통신보안연구실"
+    reservations Reservation[]
+    createdAt    DateTime      @default(now())
+  }
+
+  model Room {
+    id           String        @id @default(cuid())
+    name         String
+    capacity     Int?
+    description  String?
+    reservations Reservation[]
+  }
+
+  model Reservation {
+    id        String   @id @default(cuid())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+    roomId    String
+    startTime DateTime
+    endTime   DateTime
+    purpose   String?
+    createdAt DateTime @default(now())
+
+    @@index([roomId, startTime, endTime])
+  }
