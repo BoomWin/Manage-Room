@@ -6,7 +6,7 @@ import { NextResponse } from "next/server"
   // 예약 삭제
   export async function DELETE(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
   ) {
     try {
       const session = await getServerSession(authOptions)
@@ -18,8 +18,10 @@ import { NextResponse } from "next/server"
         )
       }
 
+      const { id } = await params
+
       const reservation = await prisma.reservation.findUnique({
-        where: { id: params.id }
+        where: { id }
       })
 
       if (!reservation) {
@@ -38,7 +40,7 @@ import { NextResponse } from "next/server"
       }
 
       await prisma.reservation.delete({
-        where: { id: params.id }
+        where: { id }
       })
 
       return NextResponse.json({ message: "예약이 삭제되었습니다" })
@@ -54,7 +56,7 @@ import { NextResponse } from "next/server"
   // 예약 수정
   export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
   ) {
     try {
       const session = await getServerSession(authOptions)
@@ -66,8 +68,10 @@ import { NextResponse } from "next/server"
         )
       }
 
+      const { id } = await params
+
       const reservation = await prisma.reservation.findUnique({
-        where: { id: params.id }
+        where: { id }
       })
 
       if (!reservation) {
@@ -101,7 +105,7 @@ import { NextResponse } from "next/server"
       // 충돌 검사 (본인 예약 제외)
       const conflict = await prisma.reservation.findFirst({
         where: {
-          id: { not: params.id },
+          id: { not: id },
           roomId: reservation.roomId,
           OR: [
             {
@@ -134,7 +138,7 @@ import { NextResponse } from "next/server"
       }
 
       const updated = await prisma.reservation.update({
-        where: { id: params.id },
+        where: { id },
         data: {
           ...(startTime && { startTime: start }),
           ...(endTime && { endTime: end }),
