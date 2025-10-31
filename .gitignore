@@ -42,3 +42,4 @@ next-env.d.ts
 
 /app/generated/prisma
 room-reservation-deploy.tar.gz
+room-reservation-deploy.tar.gz
