@@ -24,3 +24,54 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Input 텍스트 색상 강화 */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+select,
+textarea {
+	color: #111827 !important;
+}
+
+/* 캘린더 텍스트 색상 강화 */
+.rbc-event {
+	color: #ffffff !important;
+	font-weight: 500 !important;
+}
+
+.rbc-event-content {
+    color: #ffffff !important;
+}
+
+.rbc-header {
+    color: #111827 !important;
+    font-weight: 600 !important;
+}
+
+.rbc-date-cell {
+    color: #374151 !important;
+}
+
+.rbc-off-range {
+    color: #9ca3af !important;
+}
+
+.rbc-today {
+    background-color: #dbeafe !important;
+}
+
+.rbc-time-slot {
+    color: #374151 !important;
+}
+
+.rbc-label {
+    color: #374151 !important;
+}
+
+/* 플레이스홀더 색상 */
+::placeholder {
+	color: #9ca3af !important;
+	opacity: 1 !important;
+}

@@ -131,7 +131,7 @@ focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="">선택해주세요</option>
                 <option value="양자보안연구실">양자보안연구실</option>
-                <option value="이동통신보안연구실">이동통신보안연구실</option>
+                <option value="모바일인터넷보안 연구실">모바일인터넷보안 연구실</option>
               </select>
             </div>
 

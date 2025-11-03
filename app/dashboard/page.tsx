@@ -90,7 +90,13 @@ import moment from 'moment'
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({
+	  	roomId:formData.roomId,
+	  	// ISO 변환 없이 그대로 전송
+		startTime: formData.startTime,
+	  	endTime: formData.endTime,
+	  	purpose: formData.purpose
+	  })
         })
 
         const data = await response.json()
@@ -198,6 +204,14 @@ import moment from 'moment'
             <Calendar
                 reservations={reservations}
                 onSelectSlot={(start, end) => {
+		    const formDateTime = (date: Date) => {
+		    	const year = date.getFullYear()
+			const month = String(date.getMonth() + 1).padStart(2, '0')
+			const day = String(date.getDate()).padStart(2, '0')
+			const hours = String(date.getHours()).padStart(2, '0')
+			const minutes = String(date.getMinutes()).padStart(2, '0')
+			return '${year}-${month}-${day}T${hours}:${minutes}'
+		    }
                     setFormData({
                         ...formData,
                         startTime: moment(start).format('YYYY-MM-DDTHH:mm'),

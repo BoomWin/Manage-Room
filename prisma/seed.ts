@@ -13,7 +13,7 @@ import { PrismaClient } from '@prisma/client'
       data: {
         name: '공동 회의실',
         capacity: 10,
-        description: '양자보안연구실과 이동통신보안연구실이 공동으로 사용하는 회의실'
+        description: '양자보안연구실과 모바일인터넷보안연구실이 공동으로 사용하는 회의실'
       }
     })
 
