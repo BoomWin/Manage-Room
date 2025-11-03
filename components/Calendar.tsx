@@ -71,6 +71,12 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
         onView={setView}
         date={date}
         onNavigate={setDate}
+        defaultView="week"
+        views={['month', 'week', 'day']}
+        step={30}
+        timeslots={2}
+        min={new Date(0, 0, 0, 8, 0, 0)}
+        max={new Date(0, 0, 0, 22, 0, 0)}
         messages={{
           next: "다음",
           previous: "이전",
@@ -80,7 +86,6 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
           day: "일",
           agenda: "일정",
           date: "날짜",
-          time: "시간",
           event: "예약",
           noEventsInRange: "이 기간에 예약이 없습니다.",
           showMore: (total) => `+${total} 더보기`
