@@ -29,7 +29,6 @@ interface CalendarEvent {
   start: Date
   end: Date
   resource: Reservation
-  allDay?: boolean
 }
 
 interface CalendarProps {
@@ -47,8 +46,7 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
     title: `${reservation.room.name} - ${reservation.user.name} (${reservation.user.lab})`,
     start: new Date(reservation.startTime),
     end: new Date(reservation.endTime),
-    resource: reservation,
-    allDay: false  // 중요: 시간대별 표시를 위해 false로 설정
+    resource: reservation
   }))
 
   const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
