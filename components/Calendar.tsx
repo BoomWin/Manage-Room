@@ -29,6 +29,7 @@ interface CalendarEvent {
   start: Date
   end: Date
   resource: Reservation
+  allDay?: boolean
 }
 
 interface CalendarProps {
@@ -46,7 +47,8 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
     title: `${reservation.room.name} - ${reservation.user.name} (${reservation.user.lab})`,
     start: new Date(reservation.startTime),
     end: new Date(reservation.endTime),
-    resource: reservation
+    resource: reservation,
+    allDay: false  // 중요: 시간대별 표시를 위해 false로 설정
   }))
 
   const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
@@ -71,12 +73,6 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
         onView={setView}
         date={date}
         onNavigate={setDate}
-        defaultView="week"
-        views={['month', 'week', 'day']}
-        step={30}
-        timeslots={2}
-        min={new Date(0, 0, 0, 8, 0, 0)}
-        max={new Date(0, 0, 0, 22, 0, 0)}
         messages={{
           next: "다음",
           previous: "이전",
@@ -86,6 +82,7 @@ export default function Calendar({ reservations, onSelectSlot, onSelectEvent }: 
           day: "일",
           agenda: "일정",
           date: "날짜",
+          time: "시간",
           event: "예약",
           noEventsInRange: "이 기간에 예약이 없습니다.",
           showMore: (total) => `+${total} 더보기`
