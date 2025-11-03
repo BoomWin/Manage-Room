@@ -85,6 +85,14 @@ import moment from 'moment'
       setError("")
 
       try {
+        // datetime-local 값을 로컬 시간 기준 Date 객체로 변환
+        const lcoalStartTime = new Date(formData.startTime)
+        const localEndTime = new Date(formData.endTime)
+
+        // ISO 문자열로 변환 
+        const startTimeISO = lcoalStartTime.toISOString()
+        const endTimeISO = localEndTime.toISOString()
+
         const response = await fetch("/api/reservations", {
           method: "POST",
           headers: {
@@ -203,15 +211,16 @@ import moment from 'moment'
          <div className="mb-8">
             <Calendar
                 reservations={reservations}
-                onSelectSlot={(start, end) => {
-		    const formDateTime = (date: Date) => {
-		    	const year = date.getFullYear()
-			const month = String(date.getMonth() + 1).padStart(2, '0')
-			const day = String(date.getDate()).padStart(2, '0')
-			const hours = String(date.getHours()).padStart(2, '0')
-			const minutes = String(date.getMinutes()).padStart(2, '0')
-			return '${year}-${month}-${day}T${hours}:${minutes}'
-		    }
+              onSelectSlot={(start, end) => {
+                // Date 객체를 datetime-local 형식으로 변환
+                const formatForDateTimeLocal = (date: Date) => {
+                const year = date.getFullYear()
+                const month = String(date.getMonth() + 1).padStart(2, '0')
+                const day = String(date.getDate()).padStart(2, '0')
+                const hours = String(date.getHours()).padStart(2, '0')
+                const minutes = String(date.getMinutes()).padStart(2, '0')
+                return `${year}-${month}-${day}T${hours}:${minutes}`
+    }
                     setFormData({
                         ...formData,
                         startTime: moment(start).format('YYYY-MM-DDTHH:mm'),
