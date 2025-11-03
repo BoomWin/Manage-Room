@@ -53,7 +53,10 @@ import moment from 'moment'
 
     const loadReservations = async () => {
       try {
-        const response = await fetch("/api/reservations")
+        // 캐시 방지를 위해 타임스탬프 추가
+        const response = await fetch(`/api/reservations?t=${Date.now()}`, {
+          cache: 'no-store'
+        })
         if (response.ok) {
           const data = await response.json()
           setReservations(data)
